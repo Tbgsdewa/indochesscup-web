@@ -1096,27 +1096,54 @@
 .final-conversion-trust {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  width: min(100%, 920px);
-  margin: 34px auto 0;
-  letter-spacing: 0.04em;
+  gap: 12px;
+  width: min(100%, 960px);
+  margin: 52px auto 0;
+  letter-spacing: 0;
 }
 
-.final-conversion-trust div {
+.final-trust-item {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  min-height: 48px;
-  border: 1px solid rgba(212,168,67,0.14);
-  border-radius: 8px;
-  background: rgba(255,255,255,0.025);
-  padding: 10px 12px;
+  gap: 11px;
+  min-height: 58px;
+  border: 1px solid rgba(212,168,67,0.16);
+  border-radius: 999px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.018)),
+    rgba(0,0,0,0.18);
+  padding: 11px 16px;
+  color: rgba(245,240,232,0.72);
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
   line-height: 1.35;
+  text-align: center;
+  white-space: nowrap;
 }
 
-.final-conversion-trust span {
-  font-size: 14px;
+.final-trust-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  border-radius: 50%;
+  background: rgba(212,168,67,0.14);
+  color: var(--gold-light);
+  box-shadow: inset 0 0 0 1px rgba(240,201,107,0.2), 0 10px 28px rgba(0,0,0,0.22);
+}
+
+.final-trust-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 
@@ -3277,6 +3304,21 @@
   .final-conversion-trust {
     grid-template-columns: 1fr;
     text-align: center;
+    margin-top: 40px;
+  }
+
+  .final-trust-item {
+    justify-content: flex-start;
+    min-height: 54px;
+    white-space: normal;
+    text-align: left;
+    padding: 11px 14px;
+  }
+
+  .final-trust-icon {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
   }
 
   .site-footer {
