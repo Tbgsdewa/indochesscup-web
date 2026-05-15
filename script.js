@@ -46,6 +46,120 @@ fbq('track', 'PageView');
          
          counters.forEach(el => counterObserver.observe(el));
 
+// App preview carousel
+const appPreview = document.querySelector('[data-app-preview]');
+
+if (appPreview) {
+  const track = appPreview.querySelector('.app-preview-track');
+  const slides = Array.from(appPreview.querySelectorAll('.app-preview-card'));
+  const dots = Array.from(appPreview.querySelectorAll('[data-app-preview-dot]'));
+  const prevButton = appPreview.querySelector('[data-app-preview-prev]');
+  const nextButton = appPreview.querySelector('[data-app-preview-next]');
+  const currentCounter = appPreview.querySelector('[data-app-preview-current]');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const autoplayDelay = 5200;
+  let activeIndex = 0;
+  let autoplayTimer = null;
+  let pointerStartX = 0;
+  let pointerDeltaX = 0;
+  let isDragging = false;
+
+  const formatCounter = (number) => String(number).padStart(2, '0');
+
+  const updateCarousel = (nextIndex) => {
+    activeIndex = (nextIndex + slides.length) % slides.length;
+    track.style.transform = `translateX(-${activeIndex * 100}%)`;
+
+    slides.forEach((slide, index) => {
+      slide.setAttribute('aria-hidden', index === activeIndex ? 'false' : 'true');
+    });
+
+    dots.forEach((dot, index) => {
+      const isActive = index === activeIndex;
+      dot.classList.toggle('is-active', isActive);
+      dot.setAttribute('aria-selected', String(isActive));
+    });
+
+    if (currentCounter) {
+      currentCounter.textContent = formatCounter(activeIndex + 1);
+    }
+  };
+
+  const stopAutoplay = () => {
+    if (autoplayTimer) {
+      window.clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+  };
+
+  const startAutoplay = () => {
+    if (prefersReducedMotion || autoplayTimer || slides.length < 2) return;
+    autoplayTimer = window.setInterval(() => {
+      updateCarousel(activeIndex + 1);
+    }, autoplayDelay);
+  };
+
+  prevButton?.addEventListener('click', () => {
+    updateCarousel(activeIndex - 1);
+    stopAutoplay();
+    startAutoplay();
+  });
+
+  nextButton?.addEventListener('click', () => {
+    updateCarousel(activeIndex + 1);
+    stopAutoplay();
+    startAutoplay();
+  });
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      updateCarousel(Number(dot.dataset.appPreviewDot));
+      stopAutoplay();
+      startAutoplay();
+    });
+  });
+
+  track.addEventListener('pointerdown', (event) => {
+    isDragging = true;
+    pointerStartX = event.clientX;
+    pointerDeltaX = 0;
+    track.style.transition = 'none';
+    stopAutoplay();
+  });
+
+  track.addEventListener('pointermove', (event) => {
+    if (!isDragging) return;
+    pointerDeltaX = event.clientX - pointerStartX;
+    track.style.transform = `translateX(calc(-${activeIndex * 100}% + ${pointerDeltaX}px))`;
+  });
+
+  const finishDrag = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    track.style.transition = '';
+
+    if (Math.abs(pointerDeltaX) > 48) {
+      updateCarousel(activeIndex + (pointerDeltaX < 0 ? 1 : -1));
+    } else {
+      updateCarousel(activeIndex);
+    }
+
+    startAutoplay();
+  };
+
+  track.addEventListener('pointerup', finishDrag);
+  track.addEventListener('pointercancel', finishDrag);
+  track.addEventListener('pointerleave', finishDrag);
+
+  appPreview.addEventListener('mouseenter', stopAutoplay);
+  appPreview.addEventListener('mouseleave', startAutoplay);
+  appPreview.addEventListener('focusin', stopAutoplay);
+  appPreview.addEventListener('focusout', startAutoplay);
+
+  updateCarousel(0);
+  startAutoplay();
+}
+
 // FAQ accordion
 const faqItems = document.querySelectorAll('.faq-item');
 
