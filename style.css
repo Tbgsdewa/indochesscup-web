@@ -250,6 +250,81 @@
          position: absolute; inset: 0;
          background: radial-gradient(circle at 50% 60%, rgba(212,168,67,0.12), transparent 65%);
          }
+         .product-video-visual {
+         align-items: stretch;
+         justify-content: stretch;
+         padding: 0;
+         aspect-ratio: 16 / 10;
+         font-size: inherit;
+         }
+         .product-video-visual::before {
+         background:
+         radial-gradient(circle at 50% 50%, rgba(212,168,67,0.18), transparent 58%),
+         linear-gradient(145deg, rgba(255,255,255,0.04), transparent);
+         }
+         .product-video-card {
+         position: relative;
+         z-index: 1;
+         width: 100%;
+         min-height: 100%;
+         display: grid;
+         place-items: center;
+         overflow: hidden;
+         }
+         .product-video-placeholder {
+         width: min(82%, 420px);
+         display: grid;
+         justify-items: center;
+         text-align: center;
+         gap: 12px;
+         color: var(--text);
+         }
+         .product-video-label {
+         display: inline-flex;
+         align-items: center;
+         min-height: 30px;
+         border-radius: 999px;
+         border: 1px solid rgba(212,168,67,0.3);
+         background: rgba(212,168,67,0.1);
+         color: var(--gold-light);
+         padding: 6px 12px;
+         font-family: 'DM Mono', monospace;
+         font-size: 10px;
+         letter-spacing: 0.1em;
+         text-transform: uppercase;
+         }
+         .product-video-placeholder strong {
+         font-family: 'Montserrat', sans-serif;
+         font-size: clamp(22px, 3vw, 34px);
+         line-height: 1.08;
+         font-weight: 900;
+         }
+         .product-video-placeholder p {
+         max-width: 360px;
+         color: rgba(245,240,232,0.62);
+         font-size: 14px;
+         line-height: 1.7;
+         }
+         .product-video-play {
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         width: 64px;
+         height: 64px;
+         margin-top: 8px;
+         border-radius: 50%;
+         background: var(--gold);
+         color: var(--black);
+         font-size: 22px;
+         box-shadow: 0 18px 54px rgba(212,168,67,0.34);
+         }
+         .product-video-embed {
+         position: absolute;
+         inset: 0;
+         width: 100%;
+         height: 100%;
+         border: 0;
+         }
          .chess-icon-spin {
          animation: spin3d 8s linear infinite;
          position: relative; z-index: 1;
