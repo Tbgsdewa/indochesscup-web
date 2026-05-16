@@ -548,6 +548,11 @@
          object-fit: contain;
          filter: brightness(1.1);
          }
+         .footer-logo .footer-wordmark {
+         width: auto;
+         height: 42px;
+         max-width: min(280px, 56vw);
+         }
          .footer-language {
          display: inline-flex;
          align-items: center;
@@ -786,6 +791,23 @@
 /* Extracted inline styles */
 .u-style-2 { padding:0;background:none; }
 .u-style-3 { height:44px;width:auto;object-fit:contain; }
+.brand-wordmark {
+  display: block;
+  width: auto;
+  object-fit: contain;
+}
+
+.nav-wordmark {
+  height: 34px;
+  max-width: min(250px, 42vw);
+  filter: drop-shadow(0 0 14px rgba(255,255,255,0.08));
+}
+
+.footer-wordmark {
+  height: 42px;
+  max-width: min(280px, 56vw);
+  filter: brightness(1.06);
+}
 
 
 
@@ -2978,6 +3000,11 @@
     height: 34px;
   }
 
+  .nav-wordmark {
+    height: 28px;
+    max-width: calc(100vw - 96px);
+  }
+
   .hero-redesign {
     min-height: auto;
     padding: 92px 18px 54px;
@@ -3394,6 +3421,12 @@
   .footer-logo img {
     width: 44px;
     height: 44px;
+  }
+
+  .footer-logo .footer-wordmark {
+    width: auto;
+    height: 34px;
+    max-width: calc(100vw - 86px);
   }
 
   .footer-brand-block p {
